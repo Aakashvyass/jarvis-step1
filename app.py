@@ -42,35 +42,32 @@ def chat():
     # 1. Recall relevant memories
     memories = recall_memory(user_input)
 
-    # 2. Build system prompt
-    system_prompt = f"""
-You are Jarvis, a supportive, intelligent personal assistant.
-You know the user personally.
+    # 2. Build prompt
+    prompt = f"""
+You are Jarvis, a supportive personal assistant.
 
-Relevant things you remember about the user:
+Relevant memories about the user:
 {memories}
 
-Guidelines:
-- Be concise
-- Be friendly
-- Suggest gently, never command
-- If nothing relevant, just respond normally
+User message:
+{user_input}
+
+Respond naturally and helpfully.
 """
 
-    # 3. Ask the AI to think
-    response = client.chat.completions.create(
+    # 3. Call OpenAI (NEW API – this fixes the crash)
+    response = client.responses.create(
         model="gpt-4.1-mini",
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_input}
-        ]
+        input=prompt
     )
 
-    reply = response.choices[0].message.content
+    reply = response.output_text
 
     return jsonify({
         "reply": reply,
         "used_memories": memories
+    })
+
     })
 
 if __name__ == "__main__":
