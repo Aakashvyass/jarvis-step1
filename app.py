@@ -66,3 +66,6 @@ Respond naturally and helpfully.
         "reply": reply,
         "used_memories": memories
     })
+
+gunicorn app:app --bind 0.0.0.0:$PORT
+
