@@ -31,6 +31,7 @@ def recall():
 
     memories = recall_memory(query)
     return jsonify({"memories": memories})
+
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.get_json()
@@ -39,10 +40,9 @@ def chat():
     if not user_input:
         return jsonify({"error": "No message provided"}), 400
 
-    # 1. Recall relevant memories
+    # Recall relevant memories
     memories = recall_memory(user_input)
 
-    # 2. Build prompt
     prompt = f"""
 You are Jarvis, a supportive personal assistant.
 
@@ -55,7 +55,6 @@ User message:
 Respond naturally and helpfully.
 """
 
-    # 3. Call OpenAI (NEW API – this fixes the crash)
     response = client.responses.create(
         model="gpt-4.1-mini",
         input=prompt
@@ -67,8 +66,3 @@ Respond naturally and helpfully.
         "reply": reply,
         "used_memories": memories
     })
-
-    })
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
