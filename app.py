@@ -1,3 +1,6 @@
+from openai import OpenAI
+import os
+
 from flask import Flask, request, jsonify
 from vector_memory import store_memory, recall_memory
 
