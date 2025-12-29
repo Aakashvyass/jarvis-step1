@@ -1,4 +1,3 @@
-
 from flask import Flask, request, jsonify
 from vector_memory import store_memory, recall_memory
 
@@ -31,6 +30,4 @@ def recall():
     return jsonify({"memories": memories})
 
 if __name__ == "__main__":
-    # IMPORTANT: Render needs host 0.0.0.0
     app.run(host="0.0.0.0", port=10000)
-`
