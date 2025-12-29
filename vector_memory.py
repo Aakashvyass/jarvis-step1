@@ -31,3 +31,6 @@ def recall_memory(query: str, limit: int = 3):
         n_results=limit
     )
     return results["documents"][0] if results["documents"] else []
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
