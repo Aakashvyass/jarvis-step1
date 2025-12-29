@@ -1,13 +1,10 @@
-
 import os
 import uuid
 import chromadb
 from openai import OpenAI
 
-# OpenAI client (API key comes from Render env variable)
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# Create ChromaDB client (in-memory for now)
 chroma_client = chromadb.Client()
 collection = chroma_client.get_or_create_collection(
     name="jarvis_memory"
